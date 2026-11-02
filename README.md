@@ -1,8 +1,16 @@
 # Idea Flows Hook
 
-Work normally in Codex. Your project status updates automatically.
+Keep progress connected to your chats, with less to carry between tasks.
 
 [简体中文](README.zh-CN.md) · [Tests](https://github.com/patrlean/idea-flows-hook/actions/workflows/test.yml) · MIT
+
+## Why it exists
+
+AI makes it easy to work on several things at once: fixing a bug, building a page, refactoring a backend, or exploring an idea that just appeared. Attention moves between windows and conversations, and finding your place again can feel disorienting and stressful.
+
+Idea Flows aims to lay those tasks out on one board, so you can see the whole picture and feel less overwhelmed by switching between them. The [Site](https://github.com/patrlean/idea-flows-site) gives you that overview; this Hook keeps it connected to actual progress in Codex. There is a record to return to, without another status tracker to maintain by hand.
+
+## Work normally. Status updates automatically.
 
 Idea Flows removes **manual project status maintenance**. Discuss ideas, research questions, and build in Codex as usual. The active agent understands the actual progress, identifies the stage, and writes a short factual summary. The Stop hook saves it locally and, when a webhook is configured, sends it to your dashboard. No progress forms, repeated status selections, or reminders to update the board. No separate model service or API key.
 
