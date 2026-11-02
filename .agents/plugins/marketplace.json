@@ -1,4 +1,20 @@
 {
   "name": "idea-flows-tools",
-  "plugins": [{"name": "idea-flows", "source": {"source": "local", "path": "./"}, "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"}, "category": "Productivity"}]
+  "plugins": [
+    {
+      "name": "idea-flows",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ],
+  "interface": {
+    "displayName": "Idea Flows Tools"
+  }
 }

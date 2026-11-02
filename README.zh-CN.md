@@ -25,9 +25,11 @@
 codex plugin marketplace add patrlean/idea-flows-hook
 ```
 
-在插件目录选择 **idea-flows-tools**，安装 **idea-flows**。没有出现时重启桌面应用。点插件的 **Set up** 指定项目目录，再到 Codex 的 `/hooks` 界面审阅并信任命令。在已登记的项目里开始新一轮对话，确认原生 hook 是否触发。
+在插件目录选择 **Idea Flows Tools**（`idea-flows-tools`），安装 **Idea Flows**（`idea-flows`）。没有出现时重启桌面应用。点插件的 **Set up** 指定项目目录，再到 Codex 的 `/hooks` 界面审阅并信任命令。在已登记的项目里开始新一轮对话，确认原生 hook 是否触发。
 
 这是通过 Git marketplace 手动安装的插件，尚未上架通用插件目录。安装机制见 [OpenAI 官方文档](https://developers.openai.com/plugins/build/plugins)。插件已自带 hooks，不要再重复安装全局 hooks。
+
+插件名称是 **Idea Flows**。安装命令中的 `patrlean` 是 GitHub 仓库所有者，不属于插件名；插件名无需包含个人姓名。每个安装者配置自己的项目清单及可选 webhook。
 
 ## 手动配置
 

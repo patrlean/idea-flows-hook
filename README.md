@@ -29,11 +29,13 @@ Requires **Python 3.9+** available as `python3`, and a Codex desktop/CLI version
 codex plugin marketplace add patrlean/idea-flows-hook
 ```
 
-Open the Plugins Directory, select **idea-flows-tools**, and install **idea-flows**. Restart the desktop app if the source does not appear. Use the plugin's **Set up** action to enroll a directory. Review and trust its commands through Codex's `/hooks` interface, then start a new turn in that directory to verify activation.
+Open the Plugins Directory, select **Idea Flows Tools** (`idea-flows-tools`), and install **Idea Flows** (`idea-flows`). Restart the desktop app if the source does not appear. Use the plugin's **Set up** action to enroll a directory. Review and trust its commands through Codex's `/hooks` interface, then start a new turn in that directory to verify activation.
 
 This is a manually installed plugin from a Git marketplace, not a listing in the universal plugin directory. See the [official packaging and hooks documentation](https://developers.openai.com/plugins/build/plugins).
 
 Do not install a duplicate set of global hooks alongside the plugin.
+
+The plugin is named **Idea Flows**. `patrlean` in the install command is the GitHub repository owner, not part of the plugin name. Your own name is not required in the plugin name. Each installer configures their own local project list and optional webhook.
 
 ## Configure manually
 
