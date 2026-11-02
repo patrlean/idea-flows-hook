@@ -1,0 +1,8 @@
+{
+  "projects": [{"id": "sample-project", "name": "Sample project", "cwd": "/absolute/path/to/project"}],
+  "require_record": true,
+  "webhook": {
+    "url": "https://your-dashboard.example/api/sync",
+    "headers_env": {"Authorization": "IDEA_FLOWS_AUTHORIZATION"}
+  }
+}

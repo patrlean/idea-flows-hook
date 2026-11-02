@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+config.local.json
+*.sqlite3*
+.idea-flows/
+.DS_Store
