@@ -1,8 +1,16 @@
 # Idea Flows Hook
 
-正常使用 Codex，项目状态自动更新。
+让任务进展跟上对话，少一点切换时的负担。
 
 [English](README.md) · [测试](https://github.com/patrlean/idea-flows-hook/actions/workflows/test.yml) · MIT
+
+## 为什么需要它
+
+AI 让你可以同时推进好几个任务：修 bug、写页面、重构后台，或探索一个突然冒出来的 idea。注意力不断在窗口和对话之间切换，每次回来都要重新找回上下文，容易感到眩晕和焦虑。
+
+Idea Flows 希望把这些任务平铺在一张看板上，让你重新看清全局，减轻多任务切换带来的压力。[Site](https://github.com/patrlean/idea-flows-site) 负责把任务摊开，Hook 负责让 Codex 中的实际进展自动跟上。切换回来时有据可循，也不用再多做一份状态维护。
+
+## 正常使用 Codex，状态自动更新
 
 Idea Flows 的重点是**不需要用户手动维护项目状态**。接入后，你只需在 Codex 里正常聊想法、调研和开发。当前 Agent 会理解实际进展、判断阶段并生成简短摘要，Stop hook 自动记录；配置 webhook 后，自动同步到你的看板。无需每轮填写进度、选择状态或重复说“更新看板”，也无需额外模型服务或 API Key。
 
