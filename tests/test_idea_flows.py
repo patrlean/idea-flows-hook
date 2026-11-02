@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import shlex
+import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -43,6 +44,12 @@ class Tests(unittest.TestCase):
     def rows(self, table):
         with self.t.db() as db:
             return [json.loads(row[0]) for row in db.execute('SELECT payload FROM ' + table)]
+
+    def test_database_connection_closes_after_transaction(self):
+        with self.t.db() as db:
+            db.execute("SELECT 1")
+        with self.assertRaises(sqlite3.ProgrammingError):
+            db.execute("SELECT 1")
 
     def test_unenrolled_project_does_nothing(self):
         event = self.event()

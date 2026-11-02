@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Opt-in Codex progress hooks. Python 3.9+, standard library only."""
 import argparse
+from contextlib import contextmanager
 import datetime as dt
 import hashlib
 import json
@@ -66,16 +67,21 @@ class Tracker:
         self.config_path, self.data = Path(config_path).resolve(), Path(data_dir).resolve()
         self.config = json.loads(self.config_path.read_text(encoding='utf-8')) if self.config_path.exists() else {}
 
+    @contextmanager
     def db(self):
         self.data.mkdir(parents=True, exist_ok=True, mode=0o700)
         path = self.data / 'state.sqlite3'
         fd = os.open(str(path), os.O_CREAT | os.O_RDWR, 0o600)
         os.close(fd)
         db = sqlite3.connect(str(path), timeout=30)
-        db.execute('CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, payload TEXT NOT NULL, delivered INTEGER NOT NULL DEFAULT 0)')
-        db.execute('CREATE TABLE IF NOT EXISTS projects (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
-        db.execute('CREATE TABLE IF NOT EXISTS contexts (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
-        return db
+        try:
+            with db:
+                db.execute('CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, payload TEXT NOT NULL, delivered INTEGER NOT NULL DEFAULT 0)')
+                db.execute('CREATE TABLE IF NOT EXISTS projects (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
+                db.execute('CREATE TABLE IF NOT EXISTS contexts (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
+                yield db
+        finally:
+            db.close()
 
     def command(self, event):
         parts = [sys.executable, str(SCRIPT), '--config', str(self.config_path),
