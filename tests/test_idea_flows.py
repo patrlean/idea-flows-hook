@@ -82,6 +82,43 @@ class Tests(unittest.TestCase):
         self.t.hook(self.event('Stop'))
         self.assertTrue(self.rows('events')[0]['archiveConfirmed'])
 
+    def test_research_cli_persists_and_delivers_the_new_status(self):
+        self.t.hook(self.event(prompt='Investigate feasibility before writing code'))
+        args = [sys.executable, str(SCRIPT), '--config', str(self.config),
+                '--data-dir', str(self.data), 'record', '--session', 'session',
+                '--turn', 'turn', '--status', 'research',
+                '--progress', 'Compared approaches; data access still needs validation',
+                '--evidence', 'Reviewed public documentation and compared requirements']
+        result = subprocess.run(args, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with self.receiver() as (url, received):
+            self.t.config['webhook'] = {'url': url}
+            self.assertEqual(self.t.hook(self.event('Stop')), {})
+            self.assertEqual(received[0][1]['status'], 'research')
+            self.assertFalse(received[0][1]['deploymentVerified'])
+            self.assertEqual(received[0][1]['deploymentUrl'], '')
+        self.assertEqual(self.rows('projects')[0]['status'], 'research')
+        # A later implementation turn advances the same project without a schema migration.
+        self.t.hook(self.event(turn='implementation'))
+        self.record('dev', turn='implementation')
+        self.t.config.pop('webhook')
+        self.t.hook(self.event('Stop', turn='implementation'))
+        self.assertEqual(self.rows('projects')[0]['status'], 'dev')
+        self.assertEqual(len(self.rows('projects')), 1)
+
+    def test_research_needs_evidence_and_does_not_bypass_launch_checks(self):
+        self.t.hook(self.event())
+        with self.assertRaises(ValueError):
+            self.record('research', evidence=' ')
+        self.record('research', evidence='Reviewed source papers')
+        self.t.hook(self.event('Stop'))
+        self.t.hook(self.event(turn='research-finished'))
+        with self.assertRaises(ValueError):
+            self.record('live', turn='research-finished', evidence='Finished the research report')
+        self.record('research', turn='research-finished', evidence='Documented findings and open questions')
+        self.t.hook(self.event('Stop', turn='research-finished'))
+        self.assertEqual(self.rows('projects')[0]['status'], 'research')
+
     def test_live_requires_verified_url(self):
         self.t.hook(self.event())
         with self.assertRaises(ValueError):

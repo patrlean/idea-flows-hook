@@ -15,11 +15,14 @@ Enrolled Codex chat → factual summary → local event store → optional webho
 | Status | Meaning | Required evidence for a change |
 | --- | --- | --- |
 | `idea` | Planning | The current conversation |
+| `research` | Active investigation before implementation | Observed research activity, findings, and open questions |
 | `dev` | Implementation in progress | Actual work or a user-directed change |
 | `live` | Deployed | Successful deployment, a verified URL, and observed evidence |
 | `discarded` | Archived / abandoned | An explicit archival instruction quoted from the current user turn |
 
 Inactivity never archives a project. Routine discussion should preserve its status. The agent supplies the facts: the script validates required fields and exact quotes, but cannot independently prove a deployment succeeded. Review summaries when correctness matters.
+
+Literature reviews, competitor analysis, requirements discovery, and feasibility checks use `research` until implementation starts. Record the findings and what remains to be verified, with non-empty evidence. Finishing a research report does not make a project `live`; occasional research on an existing `dev` or `live` project does not move it backward automatically. Webhook receivers must accept all five status values. Existing local databases need no migration.
 
 ## Install in Codex
 
@@ -34,6 +37,8 @@ Open the Plugins Directory, select **Idea Flows Tools** (`idea-flows-tools`), an
 This is a manually installed plugin from a Git marketplace, not a listing in the universal plugin directory. See the [official packaging and hooks documentation](https://developers.openai.com/plugins/build/plugins).
 
 Do not install a duplicate set of global hooks alongside the plugin.
+
+Updating from 0.1.x: refresh the source with `codex plugin marketplace upgrade idea-flows-tools`, then update Idea Flows in the Plugins Directory. The hook commands and config paths stay the same. If you use a custom receiver, add `research` to its accepted statuses before sending research events.
 
 The plugin is named **Idea Flows**. `patrlean` in the install command is the GitHub repository owner, not part of the plugin name. Your own name is not required in the plugin name. Each installer configures their own local project list and optional webhook.
 

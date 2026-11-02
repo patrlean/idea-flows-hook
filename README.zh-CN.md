@@ -11,11 +11,14 @@
 | 状态 | 含义 | 变更依据 |
 | --- | --- | --- |
 | `idea` | 构思 | 当前对话内容 |
+| `research` | 调研 | 已开展的调研、发现和待验证问题 |
 | `dev` | 开发中 | 实际实现进展或用户指定 |
 | `live` | 已上线 | 部署成功、验证过的网址和事实依据 |
 | `discarded` | 已归档 / 已丢弃 | 用户本轮明确归档的原话 |
 
 多久没动都不会自动归档。一般讨论应保留已有状态。脚本检查字段和原话，部署结果仍由当前 Agent 根据工具结果判断，并非脚本独立验证。
+
+尚未开始实现、正在查论文、做竞品分析、需求调查或可行性验证时使用 `research`，摘要写清发现和待验证问题，事实依据不能为空。调研报告写完不等于上线；已开发或已上线的项目偶尔查资料，也不会因此自动退回调研。自建 webhook 接收端需要接受这五种状态；现有本地数据库无需迁移。
 
 ## 安装
 
@@ -28,6 +31,8 @@ codex plugin marketplace add patrlean/idea-flows-hook
 在插件目录选择 **Idea Flows Tools**（`idea-flows-tools`），安装 **Idea Flows**（`idea-flows`）。没有出现时重启桌面应用。点插件的 **Set up** 指定项目目录，再到 Codex 的 `/hooks` 界面审阅并信任命令。在已登记的项目里开始新一轮对话，确认原生 hook 是否触发。
 
 这是通过 Git marketplace 手动安装的插件，尚未上架通用插件目录。安装机制见 [OpenAI 官方文档](https://developers.openai.com/plugins/build/plugins)。插件已自带 hooks，不要再重复安装全局 hooks。
+
+从 0.1.x 更新：运行 `codex plugin marketplace upgrade idea-flows-tools` 刷新来源，再在插件目录更新 Idea Flows。hook 命令和配置路径保持一致；使用自建接收端时，先让它接受 `research`，再发送调研事件。
 
 插件名称是 **Idea Flows**。安装命令中的 `patrlean` 是 GitHub 仓库所有者，不属于插件名；插件名无需包含个人姓名。每个安装者配置自己的项目清单及可选 webhook。
 

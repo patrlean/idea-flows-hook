@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "idea-flows",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Track the progress of explicitly enrolled Codex projects, locally or through your own webhook.",
   "repository": "https://github.com/patrlean/idea-flows-hook",
   "license": "MIT",

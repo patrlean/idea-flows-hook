@@ -1,7 +1,7 @@
 {
   "description": "Record progress only for explicitly enrolled projects.",
   "hooks": {
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 \"${PLUGIN_ROOT}/scripts/idea_flows.py\" hook", "timeout": 60, "additionalContextLimit": 2200}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 \"${PLUGIN_ROOT}/scripts/idea_flows.py\" hook", "timeout": 60, "additionalContextLimit": 4096}]}],
     "Stop": [{"hooks": [{"type": "command", "command": "python3 \"${PLUGIN_ROOT}/scripts/idea_flows.py\" hook", "timeout": 60}]}]
   }
 }
