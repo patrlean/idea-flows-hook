@@ -1,10 +1,26 @@
 # Idea Flows Hook
 
-让 Idea 看板随着 Codex 对话里的实际进展更新。
+正常使用 Codex，项目状态自动更新。
 
 [English](README.md) · [测试](https://github.com/patrlean/idea-flows-hook/actions/workflows/test.yml) · MIT
 
-你主动指定要跟踪的项目后，当前 Codex Agent 会在每轮结束前记录一句有依据的进展。Stop hook 将事件保存在本机；配置 webhook 后，也可以发送到你自己的看板。无需额外模型服务或 API Key。
+Idea Flows 的重点是**不需要用户手动维护项目状态**。接入后，你只需在 Codex 里正常聊想法、调研和开发。当前 Agent 会理解实际进展、判断阶段并生成简短摘要，Stop hook 自动记录；配置 webhook 后，自动同步到你的看板。无需每轮填写进度、选择状态或重复说“更新看板”，也无需额外模型服务或 API Key。
+
+## 接入一次，之后正常对话
+
+1. 安装插件，登记要跟踪的目录，并在 Codex `/hooks` 中审阅和信任命令。
+2. 若要同步到网站，配置一次自己的 webhook 和认证；可以使用 [Idea Flows Site](https://github.com/patrlean/idea-flows-site) 创建自己的看板。
+3. 继续在已启用的目录中正常对话和工作。Agent 自动记录进展，Stop hook 保存并发送更新。
+
+你负责推进项目，Agent 负责整理事实和更新状态。用户手动指定状态只用于纠正判断，归档需要你明确表达意愿。
+
+### 全局模式与当前版本
+
+完整的本机方案支持全局开启 hook，让新项目、新对话自动进入识别范围。**本公开仓库当前版本仍按登记目录工作，尚未包含跨所有目录的全局自动发现。** 登记目录及其子目录中的对话都会自动参与；无需逐轮开启或手动更新状态。
+
+### ChatGPT 网页端
+
+网页对话使用 [Idea Flows Site](https://github.com/patrlean/idea-flows-site) 生成的站点插件。首次连接后，在需要同步的聊天中 **@自己的 Idea Flows 插件**，然后正常交流，由 Agent 自动调用同步工具。网页端不执行本地 hook，也不需要安装本仓库；未启用插件的其他网页聊天不会被同步。
 
 ## 状态如何判断
 
